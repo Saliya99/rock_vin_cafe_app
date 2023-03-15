@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:rock_vin_cafe_app/colors.dart';
+import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/home/food_page_body.dart';
 import 'package:rock_vin_cafe_app/widgets/big_text.dart';
 import 'package:rock_vin_cafe_app/widgets/small_text.dart';
@@ -20,6 +20,7 @@ class _MainFoodPage extends State<MainFoodPage> {
     return Scaffold(
       body: Column(
         children: [
+          ////////////////////////////showing the header///////////////////////
           Container(
             child: Container(
               margin: EdgeInsets.only(top: 45, bottom: 15),
@@ -33,7 +34,7 @@ class _MainFoodPage extends State<MainFoodPage> {
                       Row(
                         children: [
                           SmallText(
-                            text: "Midigaama",
+                            text: "Midigama",
                             color: Colors.black54,
                           ),
                           Icon(Icons.arrow_drop_down)
@@ -56,6 +57,7 @@ class _MainFoodPage extends State<MainFoodPage> {
               ),
             ),
           ),
+          ///////////////////////////showing the body/////////////////////////
           FoodPageBody(),
         ],
       ),

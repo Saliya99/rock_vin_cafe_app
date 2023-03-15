@@ -31,6 +31,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  get: ^4.1.4
+  dots_indicator: ^2.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -65,17 +67,17 @@ flutter:
     
 
 
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: fonts/Roboto-Black.tff
-          weight: 900
-        - asset: fonts/Roboto-Bold.tff
-          weight: 700
-        - asset: fonts/Roboto-Regular.tff
-          weight: 400
-        - asset: fonts/Roboto-Medium.tff
-          weight: 500
+  # font:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: font/Roboto-Black.tff
+  #         weight: 900
+  #       - asset: font/Roboto-Bold.tff
+  #         weight: 700
+  #       - asset: font/Roboto-Regular.tff
+  #         weight: 400
+  #       - asset: font/Roboto-Medium.tff
+  #         weight: 500
     # - family: Trajan Pro
     #   fonts:
     #     - asset: fonts/TrajanPro.ttf
