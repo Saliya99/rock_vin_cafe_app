@@ -65,17 +65,17 @@ flutter:
     
 
 
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: fonts/Roboto-Black.tff
-          weight: 900
-        - asset: fonts/Roboto-Bold.tff
-          weight: 700
-        - asset: fonts/Roboto-Regular.tff
-          weight: 400
-        - asset: fonts/Roboto-Medium.tff
-          weight: 500
+  # font:
+  #   - family: Roboto
+  #     font:
+  #       - assets: font/Roboto-Black.tff
+  #         weight: 900
+  #       - assets: font/Roboto-Bold.tff
+  #         weight: 700
+  #       - assets: font/Roboto-Regular.tff
+  #         weight: 400
+  #       - assets: font/Roboto-Medium.tff
+  #         weight: 500
     # - family: Trajan Pro
     #   fonts:
     #     - asset: fonts/TrajanPro.ttf
