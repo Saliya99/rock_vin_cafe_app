@@ -7,6 +7,7 @@ import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
 import 'package:rock_vin_cafe_app/widgets/app_column.dart';
 import 'package:rock_vin_cafe_app/widgets/app_icon.dart';
+import 'package:rock_vin_cafe_app/widgets/expandabbe_text.dart';
 import 'package:rock_vin_cafe_app/widgets/icon_and_text_widget.dart';
 
 import '../../widgets/big_text.dart';
@@ -21,6 +22,7 @@ class PopularFoodDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          //backgroud image
           Positioned(
               left: 0,
               right: 0,
@@ -32,6 +34,8 @@ class PopularFoodDetail extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: AssetImage("assets/image/food1.jpg"))),
               )),
+
+          // icon widget
           Positioned(
               top: Dimensions.height45,
               left: Dimensions.width20,
@@ -43,6 +47,7 @@ class PopularFoodDetail extends StatelessWidget {
                   AppIcon(icon: Icons.shopping_cart_checkout_outlined),
                 ],
               )),
+          //intro of food
           Positioned(
               left: 0,
               right: 0,
@@ -66,9 +71,19 @@ class PopularFoodDetail extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height20,
                     ),
-                    BigText(text: "Introduce"),
+                    BigText(text: "Description"),
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ExpandableTextWidget(
+                            text:
+                                "English Breakfast is a classic and hearty meal that is perfect for any time of the day, but especially popular for breakfast. This dish typically includes a combination of eggs, bacon, sausage, grilled tomato, mushrooms, and baked beans. It is served with toasted bread or fried bread, which is perfect for dipping into the delicious runny yolks of the eggs. The English Breakfast is a staple of British cuisine, and is loved by people all over the world. At our restaurant, we serve up a traditional English Breakfast that is made with high-quality ingredients, and is sure to satisfy your cravings. So, whether you're looking for a hearty breakfast, or just in the mood for some delicious comfort food, be sure to try our English Breakfast today!"),
+                      ),
+                    ),
                   ],
-                ), ////////////popular food star column////////
+                ),
               )),
         ],
       ),
