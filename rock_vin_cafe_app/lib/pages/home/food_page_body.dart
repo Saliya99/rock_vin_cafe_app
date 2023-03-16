@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
+import 'package:rock_vin_cafe_app/widgets/app_column.dart';
 import 'package:rock_vin_cafe_app/widgets/big_text.dart';
 import 'package:rock_vin_cafe_app/widgets/icon_and_text_widget.dart';
 import 'package:rock_vin_cafe_app/widgets/small_text.dart';
@@ -246,63 +247,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     top: Dimensions.height15,
                     left: Dimensions.height15,
                     right: Dimensions.height15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(text: "English Breakfast"),
-                    SizedBox(
-                      height: Dimensions.height10,
-                    ),
-                    Row(
-                      children: [
-                        Wrap(
-                          children: List.generate(5, (index) {
-                            return Icon(
-                              Icons.star,
-                              color: AppColors.mainColor,
-                              size: 15,
-                            );
-                          }),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "4.5"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "20"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "comments")
-                      ],
-                    ),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconAndTextWidget(
-                          icon: Icons.circle_sharp,
-                          text: "Normal",
-                          iconColor: AppColors.iconColor1,
-                        ),
-                        IconAndTextWidget(
-                          icon: Icons.location_on,
-                          text: "1.7km",
-                          iconColor: AppColors.iconColor1,
-                        ),
-                        IconAndTextWidget(
-                          icon: Icons.access_time_filled_rounded,
-                          text: "32min",
-                          iconColor: AppColors.iconColor2,
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                child: AppColumn(text: "English Breakfast"),
               ),
             ),
           )

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
-import 'package:rock_vin_cafe_app/home/food_page_body.dart';
+import 'package:rock_vin_cafe_app/pages/home/food_page_body.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
 import 'package:rock_vin_cafe_app/widgets/big_text.dart';
 import 'package:rock_vin_cafe_app/widgets/small_text.dart';
