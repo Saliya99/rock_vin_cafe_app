@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rock_vin_cafe_app/pages/food/popular_food_detail.dart';
+import 'package:rock_vin_cafe_app/pages/food/recommended_food_detail.dart';
 import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
 
 void main() {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: PopularFoodDetail(),
+      home: RecommendedFoodDetails(),
     );
   }
 }

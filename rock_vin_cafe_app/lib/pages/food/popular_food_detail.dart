@@ -7,7 +7,7 @@ import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
 import 'package:rock_vin_cafe_app/widgets/app_column.dart';
 import 'package:rock_vin_cafe_app/widgets/app_icon.dart';
-import 'package:rock_vin_cafe_app/widgets/expandabbe_text.dart';
+import 'package:rock_vin_cafe_app/widgets/expandable_text_widget.dart';
 import 'package:rock_vin_cafe_app/widgets/icon_and_text_widget.dart';
 
 import '../../widgets/big_text.dart';
