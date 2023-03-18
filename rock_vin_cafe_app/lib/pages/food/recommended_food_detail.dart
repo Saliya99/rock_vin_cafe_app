@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -68,6 +67,20 @@ class RecommendedFoodDetails extends StatelessWidget {
                 )
               ],
             ),
+          )
+        ],
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppIcon(iconColor: Colors.white,
+                  backgroundColor: AppColors.mainColor,
+                  icon: Icons.remove),
+              AppIcon(icon: Icons.add)
+            ],
           )
         ],
       ),
