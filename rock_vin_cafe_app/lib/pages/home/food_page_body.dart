@@ -24,11 +24,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   double _scaleFactor = 0.8;
   double _height = Dimensions.pageViewContainer;
 
-  @override
-  // TODO: implement initState
-  void get initState => super.initState;
 
-   {
+  void initState() {
+    super.initState();
     pageController.addListener(() {
       _currPageValue = pageController.page!;
       setState(() {
