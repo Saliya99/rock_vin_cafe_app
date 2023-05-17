@@ -75,8 +75,8 @@ class RecommendedFoodDetails extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.only(
-              left: Dimensions.width20*2.5,
-              right: Dimensions.width20*2.5,
+              left: Dimensions.width20 * 2.5,
+              right: Dimensions.width20 * 2.5,
               top: Dimensions.height10,
               bottom: Dimensions.height10,
             ),
@@ -84,14 +84,17 @@ class RecommendedFoodDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppIcon(
-                    iconSize:Dimensions.iconSize24 ,
+                    iconSize: Dimensions.iconSize24,
                     iconColor: Colors.white,
                     backgroundColor: AppColors.mainColor,
                     icon: Icons.remove),
-                BigText(text: "\$12.88 "+" X "+" 0 ", color: AppColors.mainBlackColor,size: Dimensions.font26,),
-
+                BigText(
+                  text: "\$12.88 " + " X " + " 0 ",
+                  color: AppColors.mainBlackColor,
+                  size: Dimensions.font26,
+                ),
                 AppIcon(
-                    iconSize:Dimensions.iconSize24 ,
+                    iconSize: Dimensions.iconSize24,
                     iconColor: Colors.white,
                     backgroundColor: AppColors.mainColor,
                     icon: Icons.add),
