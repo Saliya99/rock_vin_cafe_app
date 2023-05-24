@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
 import 'package:rock_vin_cafe_app/widgets/app_column.dart';
@@ -43,7 +45,11 @@ class PopularFoodDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios_new),
+                  GestureDetector (
+                      onTap:(){
+                        Get.to(()=>MainFoodPage());
+                      },
+                      child: AppIcon(icon: Icons.arrow_back_ios_new)),
                   AppIcon(icon: Icons.shopping_cart_checkout_outlined),
                 ],
               )),
