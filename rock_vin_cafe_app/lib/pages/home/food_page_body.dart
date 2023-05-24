@@ -49,17 +49,21 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(children: [
       ////////////////////////////////slider section//////////////////////////
       GetBuilder<PopularProductController>(builder: (popularProducts) {
-        return Container(
-          // color: Colors.redAccent,
-          height: Dimensions.pageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: popularProducts.popularProductList.length,
-              itemBuilder: (context, position) {
-                return _buildPageItem(
-                    position, popularProducts.popularProductList[position]);
-              }),
-        );
+        return popularProducts.isLoaded
+            ? Container(
+                // color: Colors.redAccent,
+                height: Dimensions.pageView,
+                child: PageView.builder(
+                    controller: pageController,
+                    itemCount: popularProducts.popularProductList.length,
+                    itemBuilder: (context, position) {
+                      return _buildPageItem(position,
+                          popularProducts.popularProductList[position]);
+                    }),
+              )
+            : CircularProgressIndicator(
+                color: AppColors.mainColor,
+              );
       }),
       ////dots
       GetBuilder<PopularProductController>(builder: (popularProducts) {
@@ -87,7 +91,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(text: "Popular"),
+              BigText(text: "Recommended"),
               SizedBox(
                 width: Dimensions.widtht10,
               ),
@@ -260,7 +264,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     top: Dimensions.height15,
                     left: Dimensions.height15,
                     right: Dimensions.height15),
-                child: AppColumn(text: "English Breakfast"),
+                child: AppColumn(text: popularProduct.name!),
               ),
             ),
           )
