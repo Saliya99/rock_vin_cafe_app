@@ -2,8 +2,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:rock_vin_cafe_app/controllers/cart_controller.dart';
 import 'package:rock_vin_cafe_app/controllers/popular_product_controller.dart';
 import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
 import 'package:rock_vin_cafe_app/utils/app_constants.dart';
@@ -24,7 +24,7 @@ class PopularFoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var product = Get.find<PopularProductController>().popularProductList[pageId];
-    Get.find<PopularProductController>().initProduct();
+    Get.find<PopularProductController>().initProduct(Get.find<CartController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
