@@ -2,27 +2,40 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:rock_vin_cafe_app/controllers/recommended_product_controller.dart';
+import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
 import 'package:rock_vin_cafe_app/widgets/app_icon.dart';
 import 'package:rock_vin_cafe_app/widgets/big_text.dart';
 import 'package:rock_vin_cafe_app/widgets/expandable_text_widget.dart';
 
+import '../../utils/app_constants.dart';
+
 class RecommendedFoodDetails extends StatelessWidget {
-  const RecommendedFoodDetails({super.key});
+  final int pageId;
+  const RecommendedFoodDetails({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.clear),
+                  GestureDetector(
+                    onTap: (){
+                      Get.toNamed(RouteHelper.getInitial());
+                    },
+                    child: AppIcon(icon: Icons.clear),
+                  ),
                   AppIcon(icon: Icons.shopping_cart_outlined)
                 ]),
             bottom: PreferredSize(
@@ -32,7 +45,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                 child: Center(
                     child: BigText(
                   size: Dimensions.font26,
-                  text: "Cooked SEAFOOD Soup",
+                  text: product.name!,
                 )),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
@@ -48,8 +61,8 @@ class RecommendedFoodDetails extends StatelessWidget {
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/image/food0.png",
+              background: Image.network(
+                AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -60,10 +73,8 @@ class RecommendedFoodDetails extends StatelessWidget {
               children: [
                 Container(
                   child: ExpandableTextWidget(
-                      text:
-                          "English Breakfast is a classic and hearty meal that is perfect for any time of the day, but especially popular for breakfast. This dish typically includes a combination of eggs, bacon, sausage, grilled tomato, mushrooms, and baked beans. It is served with toasted bread or fried bread, which is perfect for dipping into the delicious runny yolks of the eggs. The English Breakfast is a staple of British cuisine, and is loved by people all over the world. At our restaurant, we serve up a traditional English Breakfast that is made with high-quality ingredients, and is sure to satisfy your cravings. So, whether you're looking for a hearty breakfast, or just in the mood for some delicious comfort food, be sure to try our English Breakfast today!"),
-                  margin: EdgeInsets.only(
-                      left: Dimensions.width20, right: Dimensions.width20),
+                      text:product.description!),
+                  margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
                 )
               ],
             ),
@@ -89,7 +100,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                     backgroundColor: AppColors.mainColor,
                     icon: Icons.remove),
                 BigText(
-                  text: "\$12.88 " + " X " + " 0 ",
+                  text: "\$ ${product.price} X 0",
                   color: AppColors.mainBlackColor,
                   size: Dimensions.font26,
                 ),

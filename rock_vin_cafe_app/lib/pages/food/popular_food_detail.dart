@@ -3,6 +3,10 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:rock_vin_cafe_app/controllers/popular_product_controller.dart';
+import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
+import 'package:rock_vin_cafe_app/utils/app_constants.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
 import 'package:rock_vin_cafe_app/widgets/app_column.dart';
@@ -14,10 +18,14 @@ import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<PopularProductController>().popularProductList[pageId];
+    //print("page id id"+pageId.toString());
+    //print("Product name is"+product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -31,8 +39,11 @@ class PopularFoodDetail extends StatelessWidget {
                 height: Dimensions.PopularFoodImgSize,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage("assets/image/food1.jpg"))),
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!
+                      )
+                    )),
               )),
 
           // icon widget
@@ -43,7 +54,11 @@ class PopularFoodDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios_new),
+                  GestureDetector (
+                      onTap:(){
+                        Get.to(()=>MainFoodPage());
+                      },
+                      child: AppIcon(icon: Icons.arrow_back_ios_new)),
                   AppIcon(icon: Icons.shopping_cart_checkout_outlined),
                 ],
               )),
@@ -67,7 +82,7 @@ class PopularFoodDetail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(text: "English Breakfast"),
+                    AppColumn(text:product.name!),
                     SizedBox(
                       height: Dimensions.height20,
                     ),
@@ -78,9 +93,7 @@ class PopularFoodDetail extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: ExpandableTextWidget(
-                            text:
-                                "English Breakfast is a classic and hearty meal that is perfect for any time of the day, but especially popular for breakfast. This dish typically includes a combination of eggs, bacon, sausage, grilled tomato, mushrooms, and baked beans. It is served with toasted bread or fried bread, which is perfect for dipping into the delicious runny yolks of the eggs. The English Breakfast is a staple of British cuisine, and is loved by people all over the world. At our restaurant, we serve up a traditional English Breakfast that is made with high-quality ingredients, and is sure to satisfy your cravings. So, whether you're looking for a hearty breakfast, or just in the mood for some delicious comfort food, be sure to try our English Breakfast today!"),
-                      ),
+                            text: product.description!))
                     ),
                   ],
                 ),
@@ -135,13 +148,13 @@ class PopularFoodDetail extends StatelessWidget {
                   bottom: Dimensions.height20,
                   left: Dimensions.width20,
                   right: Dimensions.width20),
-              child: BigText(
-                text: "Rs.800  |  Add to cart",
-                color: Colors.white,
-              ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: AppColors.mainColor),
+              child: BigText(
+                text: "\$ ${product.price!} |  Add to cart",
+                color: Colors.white,
+              ),
             )
           ],
         ),
