@@ -8,6 +8,7 @@ import 'package:rock_vin_cafe_app/data/repository/recommended_product_repo.dart'
 import 'package:rock_vin_cafe_app/utils/app_constants.dart';
 
 import '../data/api/api_client.dart';
+import '../data/repository/recommended_product_repo.dart';
 
 Future<void> init() async {
   //api client
@@ -18,9 +19,9 @@ Future<void> init() async {
   Get.lazyPut(() => RecommendedProductRepo(apiClient: Get.find()));
   Get.lazyPut(() => CartRepo());
 
-
   //controller
   Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
-  Get.lazyPut(() => RecommendedProductController(recommendedProductRepo: Get.find()));
+  Get.lazyPut(
+      () => RecommendedProductController(recommendedProductRepo: Get.find()));
   Get.lazyPut(() => CartController(cartRepo: Get.find()));
 }
