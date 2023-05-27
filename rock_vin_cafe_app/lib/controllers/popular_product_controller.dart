@@ -5,6 +5,8 @@ import 'package:rock_vin_cafe_app/data/repository/popular_product_repo.dart';
 import 'package:rock_vin_cafe_app/models/products_model.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 
+import '../models/cart_model.dart';
+
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
   PopularProductController({required this.popularProductRepo});
@@ -102,5 +104,8 @@ class PopularProductController extends GetxController {
 
   int get totalItems {
     return _cart.totalItems;
+  }
+  List<CartModel>get getItems{
+    return _cart.getItems;
   }
 }

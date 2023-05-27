@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:rock_vin_cafe_app/controllers/recommended_product_controller.dart';
+import 'package:rock_vin_cafe_app/pages/cart/cart_page.dart';
 import 'package:rock_vin_cafe_app/pages/food/popular_food_detail.dart';
 import 'package:rock_vin_cafe_app/pages/food/recommended_food_detail.dart';
 import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
@@ -16,6 +17,7 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,8 +30,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'RockVin Cafe',
       home: MainFoodPage(),
-      initialRoute: RouteHelper.initial,
-      getPages: RouteHelper.routes,
+       initialRoute: RouteHelper.initial,
+       getPages: RouteHelper.routes,
     );
   }
 }
