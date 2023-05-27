@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:rock_vin_cafe_app/controllers/popular_product_controller.dart';
 import 'package:rock_vin_cafe_app/controllers/recommended_product_controller.dart';
+import 'package:rock_vin_cafe_app/pages/cart/cart_page.dart';
 import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/dimensions.dart';
@@ -53,11 +54,16 @@ class RecommendedFoodDetails extends StatelessWidget {
                             ? Positioned(
                                 right: 0,
                                 top: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  iconColor: Colors.transparent,
-                                  backgroundColor: AppColors.mainColor,
+                                child: GestureDetector(
+                                  onTap:(){
+                      Get.to(()=>CartPage());
+                    },
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ),
                                 ),
                               )
                             : Container(),

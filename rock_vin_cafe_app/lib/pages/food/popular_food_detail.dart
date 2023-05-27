@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:rock_vin_cafe_app/controllers/cart_controller.dart';
 import 'package:rock_vin_cafe_app/controllers/popular_product_controller.dart';
+import 'package:rock_vin_cafe_app/pages/cart/cart_page.dart';
 import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
 import 'package:rock_vin_cafe_app/utils/app_constants.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
@@ -69,11 +70,16 @@ class PopularFoodDetail extends StatelessWidget {
                             ? Positioned(
                                 right: 0,
                                 top: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  iconColor: Colors.transparent,
-                                  backgroundColor: AppColors.mainColor,
+                                child: GestureDetector(
+                                  onTap:(){
+                                    Get.to(()=>CartPage());
+                    },
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ),
                                 ),
                               )
                             : Container(),
@@ -136,7 +142,7 @@ class PopularFoodDetail extends StatelessWidget {
         builder: (popularProduct) {
           return Container(
             height: Dimensions.bottomHeightBar,
-            padding: EdgeInsets.only(
+             padding: EdgeInsets.only(
                 top: Dimensions.height30,
                 bottom: Dimensions.height30,
                 left: Dimensions.width20,
