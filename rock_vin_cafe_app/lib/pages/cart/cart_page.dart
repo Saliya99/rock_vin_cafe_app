@@ -79,7 +79,8 @@ top: Dimensions.height20*3,
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
-                                        AppConstants.BASE_URL+AppConstants.UPLOAD_URL+cartController.getItems[index].img!
+                                        'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg'
+                                        //AppConstants.BASE_URL+AppConstants.UPLOAD_URL+cartController.getItems[index].img!
                                       )
                                   ),
                                   borderRadius: BorderRadius.circular(Dimensions.radius20),
