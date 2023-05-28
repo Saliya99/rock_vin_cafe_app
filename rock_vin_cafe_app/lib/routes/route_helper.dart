@@ -4,6 +4,8 @@ import 'package:rock_vin_cafe_app/pages/food/popular_food_detail.dart';
 import 'package:rock_vin_cafe_app/pages/food/recommended_food_detail.dart';
 import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
 
+import '../pages/home/home_page.dart';
+
 class RouteHelper{
   static const String initial="/";
   static const String popularFood="/popular-food";
@@ -15,7 +17,7 @@ class RouteHelper{
   static String getRecommendedFood(int pageId,String page)=>'$recommendedFood?pageId=$pageId&page=$page';
   static String getCartPage()=>'$cartPage';
   static List<GetPage> routes=[
-    GetPage(name: initial, page: ()=>MainFoodPage()),
+    GetPage(name: initial, page: ()=>HomePage()),
 
     GetPage(name: popularFood, page: (){
       var pageId=Get.parameters['pageId'];
