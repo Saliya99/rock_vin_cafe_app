@@ -62,7 +62,11 @@ class RecommendedFoodDetails extends StatelessWidget {
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
+<<<<<<< Updated upstream
                 AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!,
+=======
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+>>>>>>> Stashed changes
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),

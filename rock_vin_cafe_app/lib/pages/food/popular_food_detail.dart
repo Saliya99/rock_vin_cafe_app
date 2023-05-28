@@ -38,11 +38,18 @@ class PopularFoodDetail extends StatelessWidget {
                 height: Dimensions.PopularFoodImgSize,
                 decoration: BoxDecoration(
                     image: DecorationImage(
+<<<<<<< Updated upstream
                       fit: BoxFit.cover,
                       image: NetworkImage(
                         AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!
                       )
                     )),
+=======
+                        fit: BoxFit.cover,
+                        image: NetworkImage(AppConstants.BASE_URL +
+                            AppConstants.UPLOAD_URL +
+                            product.img!))),
+>>>>>>> Stashed changes
               )),
 
           // icon widget
