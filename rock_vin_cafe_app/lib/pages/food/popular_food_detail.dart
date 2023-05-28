@@ -42,9 +42,11 @@ class PopularFoodDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(AppConstants.BASE_URL +
-                            AppConstants.UPLOAD_URL +
-                            product.img!))),
+                        image: NetworkImage(//AppConstants.BASE_URL +
+                            //AppConstants.UPLOAD_URL +
+                            //product.img!
+                            'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg'
+                            ))),
               )),
 
           // icon widget
