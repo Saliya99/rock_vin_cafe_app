@@ -12,6 +12,7 @@ import '../../controllers/recommended_product_controller.dart';
 import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/big_text.dart';
+import 'package:get/get.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);

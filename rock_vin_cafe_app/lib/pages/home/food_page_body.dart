@@ -121,7 +121,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: (){
-                  Get.toNamed(RouteHelper.getRecommendedFood(index));
+                  Get.toNamed(RouteHelper.getRecommendedFood(index,"home"));
                 },
                 child: Container(
                   margin: EdgeInsets.only(
@@ -140,7 +140,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             color: Colors.white38,
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(//AppConstants.BASE_URL +AppConstants.UPLOAD_URL +
+                                image: NetworkImage(
+                                  //AppConstants.BASE_URL +AppConstants.UPLOAD_URL +
                                     //recommendedProduct.recommendedProductList[index].img!
                                     'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg'
                                     ))),
@@ -241,7 +242,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           GestureDetector(
           onTap: (){
 
-            Get.toNamed(RouteHelper.getPopularFood(index));
+            Get.toNamed(RouteHelper.getPopularFood(index,"home"));
           },
             child: Container(
               height: Dimensions.pageViewContainer,
