@@ -117,8 +117,8 @@ class RecommendedFoodDetails extends StatelessWidget {
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
-                // AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
-                'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg',
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+                // 'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg',
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),

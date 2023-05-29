@@ -22,7 +22,8 @@ import '../../widgets/small_text.dart';
 class PopularFoodDetail extends StatelessWidget {
   final int pageId;
   final String page;
-  const PopularFoodDetail({Key? key, required this.pageId,required this.page}) : super(key: key);
+  const PopularFoodDetail({Key? key, required this.pageId, required this.page})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +45,10 @@ class PopularFoodDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                          //AppConstants.BASE_URL +
-                            //AppConstants.UPLOAD_URL +
-                            //product.img!
-                            'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg'
+                        image: NetworkImage(AppConstants.BASE_URL +
+                                AppConstants.UPLOAD_URL +
+                                product.img!
+                            // 'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg'
                             ))),
               )),
 
@@ -62,18 +62,18 @@ class PopularFoodDetail extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        if(page=="cartpage"){
+                        if (page == "cartpage") {
                           Get.toNamed(RouteHelper.getCartPage());
-                        }else{
+                        } else {
                           Get.toNamed(RouteHelper.getInitial());
                         }
                       },
                       child: AppIcon(icon: Icons.arrow_back_ios_new)),
                   GetBuilder<PopularProductController>(builder: (controller) {
                     return GestureDetector(
-                      onTap: (){
-                        if(controller.totalItems >= 1)
-                        Get.toNamed(RouteHelper.getCartPage());
+                      onTap: () {
+                        if (controller.totalItems >= 1)
+                          Get.toNamed(RouteHelper.getCartPage());
                       },
                       child: Stack(
                         children: [
@@ -84,14 +84,12 @@ class PopularFoodDetail extends StatelessWidget {
                               ? Positioned(
                                   right: 0,
                                   top: 0,
-
-                                    child: AppIcon(
-                                      icon: Icons.circle,
-                                      size: 20,
-                                      iconColor: Colors.transparent,
-                                      backgroundColor: AppColors.mainColor,
-                                    ),
-
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ),
                                 )
                               : Container(),
                           Get.find<PopularProductController>().totalItems >= 1
@@ -154,7 +152,7 @@ class PopularFoodDetail extends StatelessWidget {
         builder: (popularProduct) {
           return Container(
             height: Dimensions.bottomHeightBar,
-             padding: EdgeInsets.only(
+            padding: EdgeInsets.only(
                 top: Dimensions.height30,
                 bottom: Dimensions.height30,
                 left: Dimensions.width20,
