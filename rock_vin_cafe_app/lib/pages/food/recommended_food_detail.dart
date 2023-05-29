@@ -19,7 +19,8 @@ import '../../utils/app_constants.dart';
 class RecommendedFoodDetails extends StatelessWidget {
   final int pageId;
   final String page;
-  const RecommendedFoodDetails({Key? key, required this.pageId,required this.page})
+  const RecommendedFoodDetails(
+      {Key? key, required this.pageId, required this.page})
       : super(key: key);
 
   @override
@@ -40,9 +41,9 @@ class RecommendedFoodDetails extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      if(page=="cartpage"){
+                      if (page == "cartpage") {
                         Get.toNamed(RouteHelper.getCartPage());
-                      }else{
+                      } else {
                         Get.toNamed(RouteHelper.getInitial());
                       }
                     },
@@ -51,10 +52,9 @@ class RecommendedFoodDetails extends StatelessWidget {
                   // AppIcon(icon: Icons.shopping_cart_outlined)
                   GetBuilder<PopularProductController>(builder: (controller) {
                     return GestureDetector(
-                      onTap:(){
-                        if(controller.totalItems>=1)
-                          Get.toNamed(RouteHelper.getCartPage() );
-
+                      onTap: () {
+                        if (controller.totalItems >= 1)
+                          Get.toNamed(RouteHelper.getCartPage());
                       },
                       child: Stack(
                         children: [
@@ -65,14 +65,12 @@ class RecommendedFoodDetails extends StatelessWidget {
                               ? Positioned(
                                   right: 0,
                                   top: 0,
-
-                                    child: AppIcon(
-                                      icon: Icons.circle,
-                                      size: 20,
-                                      iconColor: Colors.transparent,
-                                      backgroundColor: AppColors.mainColor,
-                                    ),
-
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ),
                                 )
                               : Container(),
                           Get.find<PopularProductController>().totalItems >= 1
@@ -95,21 +93,23 @@ class RecommendedFoodDetails extends StatelessWidget {
                 ]),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(20),
-              child: Container(
-                color: Colors.white,
-                child: Center(
-                    child: BigText(
-                  size: Dimensions.font26,
-                  text: product.name!,
-                )),
-                width: double.maxFinite,
-                padding: EdgeInsets.only(top: 5, bottom: 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(Dimensions.radius20),
-                      topRight: Radius.circular(Dimensions.radius20),
-                    )),
+              child: SizedBox(
+                child: Container(
+                  child: Center(
+                      child: BigText(
+                    size: Dimensions.font26,
+                    text: product.name!,
+                  )),
+                  width: double.maxFinite,
+                  padding: EdgeInsets.only(top: 5, bottom: 10),
+                  // margin: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Dimensions.radius20),
+                        topRight: Radius.circular(Dimensions.radius20),
+                      )),
+                ),
               ),
             ),
             pinned: true,
@@ -117,7 +117,8 @@ class RecommendedFoodDetails extends StatelessWidget {
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
-                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+                // AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+                'https://img.restaurantguru.com/r7a5-Cafes-Reck-bar-counter.jpg',
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),

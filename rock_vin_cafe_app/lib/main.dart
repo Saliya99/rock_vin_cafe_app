@@ -17,7 +17,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -30,8 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'RockVin Cafe',
       //home: MainFoodPage(),
-       initialRoute: RouteHelper.getInitial(),
-       getPages: RouteHelper.routes,
+      initialRoute: RouteHelper.getInitial(),
+      getPages: RouteHelper.routes,
     );
   }
 }
