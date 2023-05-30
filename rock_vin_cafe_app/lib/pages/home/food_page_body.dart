@@ -195,7 +195,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                         ),
                                         IconAndTextWidget(
                                           icon: Icons.location_on,
-                                          text: "1.7km",
+                                          text: "1.8km",
                                           iconColor: AppColors.iconColor1,
                                         ),
                                         IconAndTextWidget(
