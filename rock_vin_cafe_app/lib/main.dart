@@ -5,7 +5,6 @@ import 'package:rock_vin_cafe_app/controllers/recommended_product_controller.dar
 import 'package:rock_vin_cafe_app/pages/cart/cart_page.dart';
 import 'package:rock_vin_cafe_app/pages/food/popular_food_detail.dart';
 import 'package:rock_vin_cafe_app/pages/food/recommended_food_detail.dart';
-import 'package:rock_vin_cafe_app/pages/home/home_page.dart';
 import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
 import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'controllers/popular_product_controller.dart';
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'RockVin Cafe',
-      home: HomePage(),
+      //home: MainFoodPage(),
       initialRoute: RouteHelper.getInitial(),
       getPages: RouteHelper.routes,
     );
