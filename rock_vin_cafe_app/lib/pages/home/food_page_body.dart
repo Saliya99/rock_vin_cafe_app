@@ -45,7 +45,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   @override
   void dispose() {
     pageController.dispose();
-    super.dispose();
   }
 
   @override
@@ -196,7 +195,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                         ),
                                         IconAndTextWidget(
                                           icon: Icons.location_on,
-                                          text: "1.8km",
+                                          text: "1.7km",
                                           iconColor: AppColors.iconColor1,
                                         ),
                                         IconAndTextWidget(
