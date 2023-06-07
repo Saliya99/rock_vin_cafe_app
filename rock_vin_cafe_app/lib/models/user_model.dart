@@ -1,48 +1,48 @@
 class UserModel {
-  String userId;
-  int phoneNumber;
-  String firstName;
-  String lastName;
+  String userid;
+  String phoneno;
+  String fname;
+  String lname;
   String address;
   String city;
-  String email;
+  String emailaddress;
 
   UserModel({
-    required this.userId,
-    required this.phoneNumber,
-    required this.firstName,
-    required this.lastName,
+    required this.userid,
+    required this.phoneno,
+    required this.fname,
+    required this.lname,
     required this.address,
     required this.city,
-    required this.email,
+    required this.emailaddress,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      userId: map['userid'] as String,
-      phoneNumber: map['phoneno'] as int,
-      firstName: map['fname'] as String,
-      lastName: map['lname'] as String,
+      userid: map['userid'] as String,
+      phoneno: map['phoneno'] as String,
+      fname: map['fname'] as String,
+      lname: map['lname'] as String,
       address: map['address'] as String,
       city: map['city'] as String,
-      email: map['email'] as String,
+      emailaddress: map['emailaddress'] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'userid': userId,
-      'phoneno': phoneNumber,
-      'fname': firstName,
-      'lname': lastName,
+      'userid': userid,
+      'phoneno': phoneno,
+      'fname': fname,
+      'lname': lname,
       'address': address,
       'city': city,
-      'email': email,
+      'emailaddress': emailaddress,
     };
   }
 
   List<dynamic> dataToList() {
-    return [userId, phoneNumber, firstName, lastName, address, city, email];
+    return [userid, phoneno, fname, lname, address, city, emailaddress];
   }
 
   String tableColumns() {
