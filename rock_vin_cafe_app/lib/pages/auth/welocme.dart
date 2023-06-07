@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rock_vin_cafe_app/controllers/auth_controller.dart';
 import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/utils/custom_button.dart';
@@ -17,6 +20,23 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  Future<void> _googleSignIn() async {
+    try {
+      final auth = Provider.of<AuthBase>(context, listen: false);
+      User? user = await auth.signInWithGoogle();
+      print(user!.metadata.creationTime);
+      print(user.metadata.lastSignInTime);
+      if (user!.metadata.creationTime == user.metadata.lastSignInTime) {
+        print("First Timr Login");
+      } else {
+        print("Not the first time login");
+        // Do something else
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +110,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         color: Colors.white,
                         size: 20,
                       ),
+                      onPressed: () {
+                        Get.toNamed(RouteHelper.getLoginByPhonePage());
+                      },
                     ),
                     SizedBox(
                       height: 20,
@@ -119,8 +142,17 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                             child: SizedBox(
                               height: 40,
-                              child: Image.network(
-                                "https://img.icons8.com/color/48/google-logo.png",
+                              child: InkWell(
+                                onTap: () {
+                                  try {
+                                    _googleSignIn();
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                },
+                                child: Image.network(
+                                  "https://img.icons8.com/color/48/google-logo.png",
+                                ),
                               ),
                             ),
                           ),
