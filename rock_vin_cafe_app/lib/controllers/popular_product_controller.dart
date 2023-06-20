@@ -4,7 +4,6 @@ import 'package:rock_vin_cafe_app/controllers/cart_controller.dart';
 import 'package:rock_vin_cafe_app/data/repository/popular_product_repo.dart';
 import 'package:rock_vin_cafe_app/models/products_model.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
-
 import '../models/cart_model.dart';
 
 class PopularProductController extends GetxController {
@@ -22,25 +21,33 @@ class PopularProductController extends GetxController {
   int _inCartItems = 0;
   int get inCartItems => _inCartItems + _quantity;
 
+  final String baseUrl = "http://api.caferockvin.live";
+  final String Uri = "http://api.caferockvin.live/api/v1/products/popular";
+
+
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
+
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
-
       _isLoaded = true;
       update();
-    } else {}
+    } else {
+      // Handle error cases
+    }
   }
 
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       print("Incremented");
       _quantity = checkQuantity(_quantity + 1);
-      print("number of items" + _quantity.toString());
+      print("Number of items: $_quantity");
     } else {
       _quantity = checkQuantity(_quantity - 1);
-      // print("Decremented" + _quantity.toString());
+      // print("Decremented: $_quantity");
     }
     update();
   }
@@ -49,7 +56,7 @@ class PopularProductController extends GetxController {
     if ((_inCartItems + quantity) < 0) {
       Get.snackbar(
         "Item Count",
-        "You can't reduce more !",
+        "You can't reduce more!",
         backgroundColor: AppColors.mainColor,
         colorText: Colors.white,
       );
@@ -61,7 +68,7 @@ class PopularProductController extends GetxController {
     } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar(
         "Item Count",
-        "You can't add more !",
+        "You can't add more!",
         backgroundColor: AppColors.mainColor,
         colorText: Colors.white,
       );
@@ -98,7 +105,6 @@ class PopularProductController extends GetxController {
           "The quantity is " +
           value.quantity.toString());
     });
-
     update();
   }
 
