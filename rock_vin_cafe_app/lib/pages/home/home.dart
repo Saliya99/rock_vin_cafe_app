@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rock_vin_cafe_app/pages/cart/cart_page.dart';
 import 'package:rock_vin_cafe_app/pages/home/home_page_2.dart';
+import 'package:rock_vin_cafe_app/pages/profile/profile.dart';
+import 'package:rock_vin_cafe_app/pages/search_page/search_page.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   int? index;
   @override
   void initState() {
-    index = 2;
+    index = 1;
     super.initState();
   }
 
@@ -32,14 +34,18 @@ class _HomePageState extends State<HomePage> {
           TabItem(icon: Icons.where_to_vote, title: "Track"),
           TabItem(icon: Icons.person, title: "Profile"),
         ],
-        backgroundColor: AppColors.paraColor,
+        color: AppColors.mainBlackColor,
+        activeColor: AppColors.mainColor,
+        backgroundColor: Colors.white,
         style: TabStyle.fixedCircle,
         onTap: (int i) {
           setState(() {
             index = i;
           });
         },
-        initialActiveIndex: 1,
+        initialActiveIndex: 2,
+        elevation: 2,
+        // height: 45,
       ),
       body: Builder(
         builder: (BuildContext context) {
@@ -48,12 +54,7 @@ class _HomePageState extends State<HomePage> {
               return CartPage();
 
             case 1:
-              return Scaffold(
-                backgroundColor: Colors.yellow,
-                body: Center(
-                  child: Text("Setup"),
-                ),
-              );
+              return SearchPage();
 
             case 2:
               return HomePage2();
@@ -68,12 +69,7 @@ class _HomePageState extends State<HomePage> {
               );
 
             case 4:
-              return Scaffold(
-                backgroundColor: Colors.blue,
-                body: Center(
-                  child: Text("Profile"),
-                ),
-              );
+              return ProfileViewPage();
 
             default:
               return Container();
