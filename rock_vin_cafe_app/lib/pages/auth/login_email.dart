@@ -74,13 +74,10 @@ class _LoginByEmailPageState extends State<LoginByEmailPage> {
       try {
         final auth = Provider.of<AuthBase>(context, listen: false);
 
-        // // send email and password to createUserWithEmailandPassword in auth.dart for register
-        // User? user =
-        //     await auth.createAccountWithEmailAndPassword(_email, _password);
+        User? user =
+            await auth.createAccountWithEmailAndPassword(_email, _password);
 
-        if (true) {
-          // if (user != null) {
-
+        if (user != null) {
           Database database = new SQLDatabase();
           var conn = await database.getDbConnection();
 

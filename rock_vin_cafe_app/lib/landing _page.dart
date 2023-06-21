@@ -10,6 +10,7 @@ import 'package:rock_vin_cafe_app/pages/auth/welocme.dart';
 import 'package:rock_vin_cafe_app/pages/home/home.dart';
 import 'package:rock_vin_cafe_app/pages/home/home_page_2.dart';
 import 'package:rock_vin_cafe_app/pages/profile/profile.dart';
+import 'package:rock_vin_cafe_app/pages/single_food_page/single_food_page.dart';
 import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 
 import 'controllers/auth_controller.dart';

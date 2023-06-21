@@ -50,6 +50,7 @@ dependencies:
   flutter_floating_bottom_bar: ^1.1.0
   convex_bottom_bar: ^3.2.0
   cached_network_image: ^3.2.3
+  dropdown_search: ^5.0.6
 
 dev_dependencies:
   flutter_test:
