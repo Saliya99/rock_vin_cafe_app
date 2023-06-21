@@ -2,10 +2,8 @@ import 'package:get/get.dart';
 import 'package:rock_vin_cafe_app/landing%20_page.dart';
 import 'package:rock_vin_cafe_app/models/food_model.dart';
 import 'package:rock_vin_cafe_app/pages/auth/login_phone.dart';
-import 'package:rock_vin_cafe_app/pages/cart/cart_page.dart';
-import 'package:rock_vin_cafe_app/pages/food/popular_food_detail.dart';
-import 'package:rock_vin_cafe_app/pages/food/recommended_food_detail.dart';
-import 'package:rock_vin_cafe_app/pages/home/main_food_page.dart';
+import 'package:rock_vin_cafe_app/pages/cart_page/cart_page.dart';
+
 import 'package:rock_vin_cafe_app/pages/single_food_page/single_food_page.dart';
 
 import '../pages/auth/login_email.dart';
@@ -39,32 +37,14 @@ class RouteHelper {
   static String getSingleFoodItem() => '$singleFoodItem';
 
   static List<GetPage> routes = [
-    // GetPage(
-    //     name: singleFoodItem,
-    //     page: () {
-    //       return SingleFoodItem();
-    //     }),
+    GetPage(
+        name: singleFoodItem,
+        page: () {
+          return SingleFoodItem();
+        }),
     GetPage(name: loginbyEmailPage, page: () => LoginByEmailPage()),
     GetPage(name: loginbyPhonePage, page: () => LoginByPhonePage()),
     GetPage(name: landingPage, page: () => LandingPage()),
-    GetPage(name: initial, page: () => MainFoodPage()),
-    GetPage(
-        name: popularFood,
-        page: () {
-          var pageId = Get.parameters['pageId'];
-          var page = Get.parameters["page"];
-          return PopularFoodDetail(pageId: int.parse(pageId!), page: page!);
-        },
-        transition: Transition.fadeIn),
-    GetPage(
-        name: recommendedFood,
-        page: () {
-          var pageId = Get.parameters['pageId'];
-          var page = Get.parameters["page"];
-          return RecommendedFoodDetails(
-              pageId: int.parse(pageId!), page: page!);
-        },
-        transition: Transition.fadeIn),
     GetPage(
         name: cartPage,
         page: () {

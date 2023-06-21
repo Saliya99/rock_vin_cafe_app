@@ -1,13 +1,19 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rock_vin_cafe_app/controllers/auth_controller.dart';
+import 'package:rock_vin_cafe_app/controllers/database_controller.dart';
 import 'package:rock_vin_cafe_app/models/food_model.dart';
+import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'package:rock_vin_cafe_app/widgets/icon_button.dart';
 
 import '../../utils/colors.dart';
@@ -15,10 +21,11 @@ import '../../utils/colors.dart';
 class SingleFoodItem extends StatefulWidget {
   SingleFoodItem({
     super.key,
-    required this.fooditem,
+    // required this.fooditem,
   });
 
-  final FoodModel fooditem;
+  // final FoodModel fooditem;
+  final args = Get.arguments;
   @override
   State<SingleFoodItem> createState() => _SingleFoodItemState();
 }
@@ -26,9 +33,30 @@ class SingleFoodItem extends StatefulWidget {
 int itemcount = 1;
 
 class _SingleFoodItemState extends State<SingleFoodItem> {
+  Future<void> _addToCart(int foodid, int count, double price) async {
+    // // uid, foodid, quantity, totalprice
+    final databases = Provider.of<Database>(context, listen: false);
+    final auth = Provider.of<AuthBase>(context, listen: false);
+
+    await databases.addToCartQ(
+        auth.currentUser!.uid, foodid, count, count * price);
+    // Get.toNamed(RouteHelper.getCartPage());
+
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      elevation: 6.1,
+      backgroundColor: Colors.black.withOpacity(0.2),
+      content: Center(child: Text("Add to cart successfully")),
+      duration: Duration(milliseconds: 1000),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    FoodModel food = widget.fooditem;
+    // print(widget.args.toString());
+
+    FoodModel food = widget.args;
+    print(food.foodName);
 
     int itemcode = 1;
     return Scaffold(
@@ -51,7 +79,7 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                           // borderRadius: BorderRadius.circular(20), // radius of 10
                           image: DecorationImage(
                             alignment: Alignment.bottomCenter,
-                            image: AssetImage("assets/image/food1.jpg"),
+                            image: AssetImage("assets/image/${food.foodImg}"),
                             fit: BoxFit.cover,
                           ),
                         )),
@@ -69,10 +97,10 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                               onPressed: () {
                                 Navigator.pop(context);
                               }),
-                          CustomIconButton(
-                            icon: FontAwesomeIcons.shoppingCart,
-                            onPressed: () {},
-                          )
+                          // CustomIconButton(
+                          //   icon: FontAwesomeIcons.shoppingCart,
+                          //   onPressed: () {},
+                          // )
                           // Cart button
                         ],
                       ),
@@ -98,7 +126,9 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                                   Column(
                                     // crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      AutoSizeText(
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                         food.foodName,
                                         style: GoogleFonts.dancingScript(
                                             fontSize: 10.w,
@@ -151,11 +181,15 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                   SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      food.foodDesc,
-                      style: TextStyle(fontSize: 4.w),
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 7,
+                        food.foodDesc,
+                        style: TextStyle(fontSize: 4.w),
+                      ),
                     ),
                   ),
                 ],
@@ -207,18 +241,26 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                     ),
                   ],
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 45,
-                  width: 50.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.mainBlackColor,
-                    border: Border.all(color: AppColors.mainBlackColor),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    'Add to Cart',
-                    style: TextStyle(fontSize: 6.w, color: Colors.white),
+                InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () {
+                    _addToCart(
+                        int.parse(food.foodId), itemcount, food.foodPrice);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(0.5.w),
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: 49.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.mainBlackColor,
+                      border: Border.all(color: AppColors.mainBlackColor),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      'Add to Cart',
+                      style: TextStyle(fontSize: 6.w, color: Colors.white),
+                    ),
                   ),
                 )
               ],
