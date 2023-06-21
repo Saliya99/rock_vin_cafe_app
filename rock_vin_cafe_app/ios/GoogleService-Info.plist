@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1062676055284-7a58i2p1f30ogcq0t2cf5ocv7id06tp8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1062676055284-7a58i2p1f30ogcq0t2cf5ocv7id06tp8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1062676055284-kea6c3nf771036g7c2jrq3q8526s17ub.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBye3nBWg31X3ydeoMMjDtumEaEkqI1ePA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1062676055284</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.rockVinCafeApp</string>
+	<key>PROJECT_ID</key>
+	<string>rockvin-33f7e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rockvin-33f7e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1062676055284:ios:850f0986419edb39624aa1</string>
+</dict>
+</plist>

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1062676055284",
+    "project_id": "rockvin-33f7e",
+    "storage_bucket": "rockvin-33f7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062676055284:android:97bf6e7d58e0f97f624aa1",
+        "android_client_info": {
+          "package_name": "com.example.rock_vin_cafe_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062676055284-8kbf10jm7k63fmot4inj6dh2tkcho1gp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rock_vin_cafe_app",
+            "certificate_hash": "f4c32e91e8b8c2520ffca6d1e4306b29cc2dc8c1"
+          }
+        },
+        {
+          "client_id": "1062676055284-mtdhuhik5uqtnocp7aco2mebiqgspcvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxfVXhYjZ08rfU9LKor0n9_BEFABdDD8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062676055284-54ba1hf3lfq7rhd7gdmjj97uc2jpan85.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1062676055284-1bcrb8mc4b5iu0t4vl5u866960fhr8sl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.RockVin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
