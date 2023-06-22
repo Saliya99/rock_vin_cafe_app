@@ -36,6 +36,17 @@ class CardModel {
     };
   }
 
+  List<dynamic> dataToList() {
+    return [
+      cardId,
+      nameOnCard,
+      cardNo,
+      csvNo,
+      exp,
+      username,
+    ];
+  }
+
   String tableColumns() {
     return 'card_id, name_on_card, cardno, csvno, exp, username';
   }
