@@ -21,20 +21,18 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   Future<void> _googleSignIn() async {
-    try {
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      User? user = await auth.signInWithGoogle();
-      print(user!.metadata.creationTime);
-      print(user.metadata.lastSignInTime);
-      if (user!.metadata.creationTime == user.metadata.lastSignInTime) {
-        print("First Timr Login");
-      } else {
-        print("Not the first time login");
-        // Do something else
-      }
-    } catch (e) {
-      print(e);
-    }
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    print("Staring Google Auth");
+    User? user = await auth.signInWithGoogle();
+
+    // print(user!.metadata.creationTime);
+    // print(user.metadata.lastSignInTime);
+    // if (user!.metadata.creationTime == user.metadata.lastSignInTime) {
+    //   print("First Timr Login");
+    // } else {
+    //   print("Not the first time login");
+    //   // Do something else
+    // }
   }
 
   @override
@@ -117,55 +115,55 @@ class _WelcomePageState extends State<WelcomePage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      height: 2,
-                      width: 60.w,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "or Login with",
-                      style: TextStyle(fontSize: 10),
-                    ),
-                    SizedBox(
-                      width: 100.w,
-                      height: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: SizedBox(
-                              height: 40,
-                              child: InkWell(
-                                onTap: () {
-                                  try {
-                                    _googleSignIn();
-                                  } catch (e) {
-                                    print(e);
-                                  }
-                                },
-                                child: Image.network(
-                                  "https://img.icons8.com/color/48/google-logo.png",
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            child: Image.network(
-                                "https://img.icons8.com/color/48/facebook-new.png"),
-                          ),
-                        ],
-                      ),
-                    )
+                    // Container(
+                    //   height: 2,
+                    //   width: 60.w,
+                    //   color: Colors.black.withOpacity(0.5),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Text(
+                    //   "or Login with",
+                    //   style: TextStyle(fontSize: 10),
+                    // ),
+                    // SizedBox(
+                    //   width: 100.w,
+                    //   height: 80,
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Container(
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           borderRadius: BorderRadius.circular(50),
+                    //         ),
+                    //         child: SizedBox(
+                    //           height: 40,
+                    //           child: InkWell(
+                    //             onTap: () {
+                    //               try {
+                    //                 _googleSignIn();
+                    //               } catch (e) {
+                    //                 print(e);
+                    //               }
+                    //             },
+                    //             child: Image.network(
+                    //               "https://img.icons8.com/color/48/google-logo.png",
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       SizedBox(
+                    //         width: 20,
+                    //       ),
+                    //       Container(
+                    //         child: Image.network(
+                    //             "https://img.icons8.com/color/48/facebook-new.png"),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ),
               ]),

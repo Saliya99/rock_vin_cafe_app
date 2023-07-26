@@ -4,7 +4,7 @@ class OrderModel {
   int quantity;
   double totalPrice;
   int status;
-  DateTime pickupTime;
+  String pickupTime;
   String orderFrom;
 
   OrderModel({
@@ -24,7 +24,7 @@ class OrderModel {
       quantity: map['quantity'] as int,
       totalPrice: map['totalprice'] as double,
       status: map['status'] as int,
-      pickupTime: DateTime.parse(map['picup_time'] as String),
+      pickupTime: map['picup_time'] as String,
       orderFrom: map['order_from'] as String,
     );
   }
@@ -36,9 +36,13 @@ class OrderModel {
       'quantity': quantity,
       'totalprice': totalPrice,
       'status': status,
-      'picup_time': pickupTime.toIso8601String(),
-      'order_from': 'm',
+      'picup_time': pickupTime,
+      'order_from': orderFrom,
     };
+  }
+
+  List<dynamic> dataToList() {
+    return [uid, foodId, quantity, totalPrice, status, pickupTime, orderFrom];
   }
 
   String tableColumns() {

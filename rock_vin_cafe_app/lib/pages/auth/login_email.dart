@@ -84,7 +84,7 @@ class _LoginByEmailPageState extends State<LoginByEmailPage> {
           await conn.connect();
 
           UserModel userModel = UserModel(
-            userid: "user.uid",
+            userid: user.uid,
             // userId: user.uid,
 
             phoneno: (_phone),
@@ -95,8 +95,8 @@ class _LoginByEmailPageState extends State<LoginByEmailPage> {
             emailaddress: _email,
           );
 
-          database.saveData(
-              "users", userModel.tableColumns(), userModel.dataToList());
+          await database.saveData(
+              "user", userModel.tableColumns(), userModel.dataToList());
           Get.offAll(() => const LandingPage());
         }
       } catch (e) {
@@ -238,8 +238,8 @@ class _LoginByEmailPageState extends State<LoginByEmailPage> {
                     onPressed: () {
                       _submit();
                     },
-                    child: const Text(
-                      'Login',
+                    child: Text(
+                      isLogin ? "Login" : "Register",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
@@ -250,8 +250,10 @@ class _LoginByEmailPageState extends State<LoginByEmailPage> {
                         isLogin = !isLogin;
                       });
                     },
-                    child: const Text(
-                      "No account ? Register",
+                    child: Text(
+                      isLogin
+                          ? "Have a Account ? Login"
+                          : "No account ? Register",
                       style: TextStyle(color: Colors.black),
                     ))
               ],

@@ -11,13 +11,15 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rock_vin_cafe_app/controllers/auth_controller.dart';
 import 'package:rock_vin_cafe_app/controllers/database_controller.dart';
+import 'package:rock_vin_cafe_app/models/card_colums.dart';
 import 'package:rock_vin_cafe_app/models/cart_model.dart';
 import 'package:rock_vin_cafe_app/models/order_model.dart';
+import 'package:rock_vin_cafe_app/pages/card_page/card_page.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 import 'package:rock_vin_cafe_app/widgets/icon_button.dart';
 
 class OrderPage extends StatefulWidget {
-  const OrderPage({super.key});
+  OrderPage({super.key});
 
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -30,38 +32,37 @@ List<CartModel> cartmodel = [];
 
 class _OrderPageState extends State<OrderPage> {
   Future<void> addOrder() async {
-    final databases = Provider.of<Database>(context, listen: false);
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    try {
+      if (formattedDateTime == '' || formattedDateTime == null) {
+        await _selectDate(context);
+      }
+      final databases = Provider.of<Database>(context, listen: false);
+      final auth = Provider.of<AuthBase>(context, listen: false);
 
 //loop for list of cartmodel
-    for (int i = 0; i < cartmodel.length; i++) {
-      OrderModel orderModel = OrderModel(
-        uid: auth.currentUser!.uid,
-        foodId: cartmodel[i].foodId,
-        quantity: cartmodel[i].quantity,
-        totalPrice: cartmodel[i].totalPrice,
-        status: 0,
-        pickupTime: DateTime.parse(formattedDateTime),
-        orderFrom: 'm',
-      );
-      await databases.addOrder(orderModel);
-    }
+      for (int i = 0; i < cartmodel.length; i++) {
+        OrderModel orderModel = OrderModel(
+          uid: auth.currentUser!.uid,
+          foodId: cartmodel[i].foodId,
+          quantity: cartmodel[i].quantity,
+          totalPrice: cartmodel[i].totalPrice,
+          status: 0,
+          pickupTime: formattedDateTime,
+          orderFrom: 'm',
+        );
 
-    OrderModel orderModel = OrderModel(
-      uid: auth.currentUser!.uid,
-      foodId: cartmodel[0].foodId,
-      quantity: cartmodel.fold(0, (sum, item) => sum + item.quantity),
-      totalPrice: cartmodel.fold(0.0, (sum, item) => sum + item.totalPrice),
-      status: 0,
-      pickupTime: DateTime.parse(formattedDateTime),
-      orderFrom: 'm',
-    );
-    // await databases.deleteCartQ();
+        await databases.addOrder(orderModel.dataToList());
+        await databases.deleteCartQ(cartmodel[i].cartId);
+      }
+      Navigator.pop(context);
+    } catch (e) {
+      print(e);
+    }
   }
 
-  Future<void> _cartq(int cartid, int count) async {
+  Future<void> _cartq(int cartid, int count, int foodid) async {
     final databases = Provider.of<Database>(context, listen: false);
-    await databases.updateCartQ(cartid, count);
+    await databases.updateCartQ(cartid, count, foodid);
     setState(() {});
   }
 
@@ -79,7 +80,7 @@ class _OrderPageState extends State<OrderPage> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
     final TimeOfDay? pickedTime = await showTimePicker(
@@ -173,7 +174,7 @@ class _OrderPageState extends State<OrderPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              height: 65.h,
+                              height: 60.h,
                               padding:
                                   const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
                               child: ClipRRect(
@@ -193,10 +194,78 @@ class _OrderPageState extends State<OrderPage> {
                               )),
                           Container(
                             padding: const EdgeInsets.all(12.0),
-                            height: 120,
+                            height: 165,
                             // color: Colors.white,
                             child: Column(
                               children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    FutureBuilder<List<CardModel>>(
+                                        future: databases.readCardData(
+                                            auth.currentUser!.uid),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return SizedBox();
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else if (!snapshot.hasData) {
+                                            return Text('No data available');
+                                          } else {
+                                            List<CardModel> cartModel =
+                                                snapshot.data!;
+                                            if (cartModel.isEmpty) {
+                                              return Text(
+                                                'Add A Card',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color:
+                                                      AppColors.mainBlackColor,
+                                                ),
+                                              );
+                                            }
+                                            return Text(
+                                              cartModel[0].cardNo,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: AppColors.mainBlackColor,
+                                              ),
+                                            );
+                                            // print(cartModel[1].cardId);
+                                          }
+                                        }),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CardDetailsPage()));
+                                            },
+                                            child: FaIcon(
+                                              Icons.add,
+                                              color: Colors.green,
+                                            )),
+                                        InkWell(
+                                            onTap: () {
+                                              setState(() {});
+                                            },
+                                            child: FaIcon(
+                                              Icons.refresh,
+                                              color: Colors.green,
+                                            )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +310,7 @@ class _OrderPageState extends State<OrderPage> {
                                           ),
                                         ),
                                         Text(
-                                          "Total ${cartmodel.fold(0.0, (sum, item) => sum + item.totalPrice)}0",
+                                          "Total RS ${cartmodel.fold(0.0, (sum, item) => sum + item.totalPrice)}0",
                                           style: TextStyle(
                                               fontSize: 22,
                                               color: AppColors.mainBlackColor,
@@ -254,6 +323,7 @@ class _OrderPageState extends State<OrderPage> {
                                       onTap: () {
                                         // _addToCart(int.parse(food.foodId), itemcount,
                                         //     food.foodPrice);
+                                        addOrder();
                                       },
                                       child: Container(
                                         margin: EdgeInsets.all(0.5.w),
@@ -314,8 +384,7 @@ class _OrderPageState extends State<OrderPage> {
                   borderRadius: BorderRadius.circular(20), // radius of 10
 
                   image: DecorationImage(
-                    image: AssetImage(
-                        "assets/image/food${rnd.nextInt(4) + 1}.jpg"),
+                    image: AssetImage("assets/image/${cartModel.foodImg}"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -329,17 +398,19 @@ class _OrderPageState extends State<OrderPage> {
                   children: [
                     SizedBox(
                       // padding: const EdgeInsets.only(top: 00),
-                      // width: 30.w,
+                      width: 55.w,
                       child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                         cartModel.foodName,
                         style: TextStyle(fontSize: 5.w),
                       ),
                     ),
                     Text(
-                      "${cartModel.foodPrice}0   X${cartModel.quantity}",
+                      "Rs${cartModel.foodPrice}0   X${cartModel.quantity}",
                       style: TextStyle(fontSize: 15),
                     ),
-                    Text("${cartModel.totalPrice}0",
+                    Text("Rs ${cartModel.totalPrice}0",
                         style: TextStyle(fontSize: 20)),
                   ],
                 ),

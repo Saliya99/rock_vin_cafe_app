@@ -220,16 +220,6 @@ class _LoginByPhonePageState extends State<LoginByPhonePage> {
                     ),
                   ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isLogin = !isLogin;
-                      });
-                    },
-                    child: const Text(
-                      "No account ? Register",
-                      style: TextStyle(color: Colors.black),
-                    ))
               ],
             ),
           ],

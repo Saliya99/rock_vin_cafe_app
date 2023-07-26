@@ -56,9 +56,9 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
     // print(widget.args.toString());
 
     FoodModel food = widget.args;
-    print(food.foodName);
+    // print(food.foodName);
 
-    int itemcode = 1;
+    // int itemcode = 1;
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: Column(
@@ -95,12 +95,16 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                           CustomIconButton(
                               icon: FontAwesomeIcons.arrowLeft,
                               onPressed: () {
+                                itemcount = 1;
                                 Navigator.pop(context);
                               }),
-                          // CustomIconButton(
-                          //   icon: FontAwesomeIcons.shoppingCart,
-                          //   onPressed: () {},
-                          // )
+                          CustomIconButton(
+                            icon: FontAwesomeIcons.shoppingCart,
+                            onPressed: () {
+                              Get.toNamed(RouteHelper.getCartPage(),
+                                  arguments: "singlefoodpage");
+                            },
+                          )
                           // Cart button
                         ],
                       ),
@@ -137,9 +141,7 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                                                 .buttonBackgroungColor),
                                       ),
                                       Text(
-                                        "LKR " +
-                                            food.foodPrice.toString() +
-                                            "0",
+                                        "RS " + food.foodPrice.toString() + "0",
                                         style: TextStyle(
                                             fontSize: 7.w,
                                             fontWeight: FontWeight.bold,
@@ -157,27 +159,27 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
               ),
               Column(
                 children: [
-                  Container(
-                    width: 100.w,
-                    // height: 100,
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "4.5/5.0",
-                          style: TextStyle(fontSize: 6.w),
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.orange,
-                          size: 8.w,
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   width: 100.w,
+                  //   // height: 100,
+                  //   alignment: Alignment.centerRight,
+                  //   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  //   child: Row(
+                  //     crossAxisAlignment: CrossAxisAlignment.end,
+                  //     mainAxisAlignment: MainAxisAlignment.end,
+                  //     children: [
+                  //       Text(
+                  //         "4.5/5.0",
+                  //         style: TextStyle(fontSize: 6.w),
+                  //       ),
+                  //       Icon(
+                  //         Icons.star,
+                  //         color: Colors.orange,
+                  //         size: 8.w,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 20,
                   ),
@@ -209,7 +211,9 @@ class _SingleFoodItemState extends State<SingleFoodItem> {
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          itemcount--;
+                          if (itemcount > 1) {
+                            itemcount--;
+                          }
                         });
                       },
                       icon: FaIcon(

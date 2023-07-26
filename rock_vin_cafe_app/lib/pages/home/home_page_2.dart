@@ -8,8 +8,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rock_vin_cafe_app/controllers/auth_controller.dart';
 import 'package:rock_vin_cafe_app/controllers/database_controller.dart';
 import 'package:rock_vin_cafe_app/models/food_model.dart';
+import 'package:rock_vin_cafe_app/models/user_model.dart';
 import 'package:rock_vin_cafe_app/pages/single_food_page/single_food_page.dart';
 import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
@@ -36,6 +38,7 @@ class _HomePage2State extends State<HomePage2> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     final databases = Provider.of<Database>(context, listen: false);
     return Scaffold(
       backgroundColor: AppColors.mainColor,
@@ -51,34 +54,94 @@ class _HomePage2State extends State<HomePage2> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 100,
-                      child: Stack(
-                        alignment: AlignmentDirectional.topStart,
-                        children: [
-                          Text("Welcome",
-                              style: GoogleFonts.pacifico(
-                                fontSize: 10.w,
-                                color: AppColors.titleColor,
-                              )),
-                          Positioned(
-                            top: 50.0,
-                            child: Text("Jhon Doe",
-                                style: GoogleFonts.pacifico(
-                                  fontSize: 5.w,
-                                  color: AppColors.titleColor,
-                                )),
-                          )
-                        ],
-                      ),
-                    ),
-                    const Text(
-                      'Janidu\nLinkeppitiya\nDambadeniya',
-                      style: TextStyle(
-                        color: AppColors.mainBlackColor,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
+                    FutureBuilder<UserModel>(
+                        future: databases.readUserData(
+                            "users", auth.currentUser!.uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return SizedBox(
+                              height: 100,
+                              width: 100.w,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Loading...'),
+                                  SizedBox(height: 16),
+                                  CircularProgressIndicator(),
+                                ],
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (!snapshot.hasData) {
+                            return Text('No data available');
+                          } else {
+                            final userModel = snapshot.data!;
+                            return SizedBox(
+                              height: 90,
+                              width: 90.w,
+                              child: Stack(
+                                alignment: AlignmentDirectional.topStart,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    // crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                        height: 100,
+                                        child: Stack(
+                                          children: [
+                                            Text("Welcome",
+                                                style: GoogleFonts.pacifico(
+                                                  fontSize: 10.w,
+                                                  color: AppColors.titleColor,
+                                                )),
+                                            Positioned(
+                                              top: 50.0,
+                                              child: Text(
+                                                  "${userModel.fname} ${userModel.lname}",
+                                                  style: GoogleFonts.pacifico(
+                                                    fontSize: 5.w,
+                                                    color: AppColors.titleColor,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${userModel.address}',
+                                              style: TextStyle(
+                                                color: AppColors.mainBlackColor,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: ',\n',
+                                              style: TextStyle(
+                                                color: AppColors.mainBlackColor,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '${userModel.city}',
+                                              style: TextStyle(
+                                                color: AppColors.mainBlackColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          }
+                        }),
                   ],
                 ),
               ),
@@ -103,7 +166,7 @@ class _HomePage2State extends State<HomePage2> {
                 ],
               ),
               FutureBuilder<List<FoodModel>>(
-                future: databases.readFoodData(),
+                future: databases.readFoodData(''),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return SizedBox(
@@ -146,13 +209,19 @@ class _HomePage2State extends State<HomePage2> {
                                 //open single food page using navigator
 
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SingleFoodItem(
-                                              fooditem: foodData[index],
-                                            )),
-                                  );
+                                  //get.tonamed
+                                  Get.toNamed('/single-food-item',
+                                      arguments: foodData[index]);
+
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => SingleFoodItem(
+                                  //             fooditem: foodData[index],
+                                  //           )),
+                                  // // );
+                                  // RouteHelper.routerHelper.goToPage(
+                                  //     SingleFoodItem(fooditem: foodData[index]));
                                 },
                                 child: FoodItemCard(foodData[index]));
                           },
@@ -174,13 +243,15 @@ class FoodItemCard extends StatelessWidget {
   FoodItemCard(this.foodModel, {Key? key}) : super(key: key);
   final Random rnd = Random();
   final FoodModel foodModel;
+
   @override
   Widget build(BuildContext context) {
+    // print("assets/image/${foodModel.foodImg}");
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20), // radius of 10
         image: DecorationImage(
-          image: AssetImage("assets/image/food${rnd.nextInt(4) + 1}.jpg"),
+          image: AssetImage("assets/image/${foodModel.foodImg}"),
           fit: BoxFit.cover,
         ),
       ),
@@ -204,7 +275,10 @@ class FoodItemCard extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    foodModel.foodPrice.toString(),
+                    'RS. ${foodModel.foodPrice}0',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: TextStyle(color: AppColors.titleColor, fontSize: 20),
                   ),
                 ),

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rock_vin_cafe_app/controllers/database_controller.dart';
 import 'package:rock_vin_cafe_app/models/food_cat.dart';
+import 'package:rock_vin_cafe_app/pages/food_cat/food_cat.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 
 class SearchPage extends StatefulWidget {
@@ -46,21 +47,21 @@ class _SearchPageState extends State<SearchPage> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            TextField(
-              controller: _searchController,
-              onChanged: (a) {
-                String query = _searchController.text.toLowerCase();
-                // Filter the _foodlist based on the query
-                _filteredFoodList = _foodlist
-                    .where((item) => item.toLowerCase().contains(query))
-                    .toList();
-                // Trigger a rebuild of the widget
-                setState(() {});
-              },
-              decoration: InputDecoration(
-                hintText: 'Enter your search query',
-              ),
-            ),
+            // TextField(
+            //   controller: _searchController,
+            //   onChanged: (a) {
+            //     String query = _searchController.text.toLowerCase();
+            //     // Filter the _foodlist based on the query
+            //     _filteredFoodList = _foodlist
+            //         .where((item) => item.toLowerCase().contains(query))
+            //         .toList();
+            //     // Trigger a rebuild of the widget
+            //     setState(() {});
+            //   },
+            //   decoration: InputDecoration(
+            //     hintText: 'Enter your search query',
+            //   ),
+            // ),
             SizedBox(height: 16.0),
 
             SizedBox(height: 16.0),
@@ -116,7 +117,21 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         itemCount: foodData.length,
                         itemBuilder: (context, index) {
-                          return FoodItemCard(foodData[index]);
+                          return InkWell(
+                            //go to food_cat
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FoodCat(
+                                          catgory:
+                                              int.parse(foodData[index].cateId),
+                                          catgoryname: foodData[index].cateName,
+                                        )),
+                              );
+                            },
+                            child: FoodItemCard(foodData[index]),
+                          );
                         },
                       ),
                     ),
@@ -141,7 +156,7 @@ class FoodItemCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20), // radius of 10
         image: DecorationImage(
-          image: AssetImage("assets/image/food${rnd.nextInt(4) + 1}.jpg"),
+          image: AssetImage("assets/image/${category.cateId}.jpg"),
           fit: BoxFit.cover,
         ),
       ),

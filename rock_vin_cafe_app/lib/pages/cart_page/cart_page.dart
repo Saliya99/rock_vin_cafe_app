@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +12,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rock_vin_cafe_app/controllers/auth_controller.dart';
 import 'package:rock_vin_cafe_app/controllers/database_controller.dart';
 import 'package:rock_vin_cafe_app/models/cart_model.dart';
+import 'package:rock_vin_cafe_app/pages/order_page/order_page.dart';
+import 'package:rock_vin_cafe_app/routes/route_helper.dart';
 import 'package:rock_vin_cafe_app/utils/colors.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+  CartPage({super.key});
 
+  final args = Get.arguments;
   @override
   State<CartPage> createState() => _CartPageState();
 }
@@ -26,9 +30,10 @@ final Random rnd = Random();
 List<CartModel> cartmodel = [];
 
 class _CartPageState extends State<CartPage> {
-  Future<void> _cartq(int cartid, int count) async {
+  Future<void> _cartq(int cartid, int count, int foodId) async {
+    print(count);
     final databases = Provider.of<Database>(context, listen: false);
-    await databases.updateCartQ(cartid, count);
+    await databases.updateCartQ(cartid, count, foodId);
     setState(() {});
   }
 
@@ -42,19 +47,40 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
     final databases = Provider.of<Database>(context, listen: false);
-
+    print(widget.args);
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              Text(
-                "Cart",
-                style: GoogleFonts.pacifico(
-                  fontSize: 10.w,
-                  color: AppColors.titleColor,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  widget.args == "singlefoodpage"
+                      ? IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            color: AppColors.titleColor,
+                          ),
+                        )
+                      : SizedBox(),
+                  Text(
+                    "Cart",
+                    style: GoogleFonts.pacifico(
+                      fontSize: 10.w,
+                      color: AppColors.titleColor,
+                    ),
+                  ),
+                  widget.args == "singlefoodpage"
+                      ? SizedBox(
+                          width: 50,
+                        )
+                      : SizedBox()
+                ],
               ),
               //FutureBuilder for get data from sql
               FutureBuilder<List<CartModel>>(
@@ -83,7 +109,7 @@ class _CartPageState extends State<CartPage> {
                     return Column(
                       children: [
                         Container(
-                          height: 65.h,
+                          height: widget.args == "singlefoodpage" ? 72.h : 65.h,
                           padding:
                               const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
                           child: ListView.builder(
@@ -119,7 +145,7 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                   ),
                                   Text(
-                                    "Total ${cartmodel.fold(0.0, (sum, item) => sum + item.totalPrice)}0",
+                                    "Total RS ${cartmodel.fold(0.0, (sum, item) => sum + item.totalPrice)}0",
                                     style: TextStyle(
                                         fontSize: 22,
                                         color: AppColors.mainBlackColor,
@@ -130,8 +156,14 @@ class _CartPageState extends State<CartPage> {
                               InkWell(
                                 borderRadius: BorderRadius.circular(10),
                                 onTap: () {
-                                  // _addToCart(int.parse(food.foodId), itemcount,
-                                  //     food.foodPrice);
+                                  if (cartmodel.isEmpty) {
+                                    print("object");
+                                    return null;
+                                  }
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => OrderPage()));
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(0.5.w),
@@ -199,90 +231,101 @@ class _CartPageState extends State<CartPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      // padding: const EdgeInsets.only(top: 00),
-                      width: 30.w,
-                      child: Text(
-                        cartModel.foodName,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(fontSize: 5.w),
+                      width: 55.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            // padding: const EdgeInsets.only(top: 00),
+                            width: 30.w,
+                            child: Text(
+                              cartModel.foodName,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(fontSize: 5.w),
+                            ),
+                          ),
+                          InkWell(
+                              onTap: () {
+                                _cartDel(cartModel.cartId);
+                              },
+                              child: FaIcon(
+                                FontAwesomeIcons.trashAlt,
+                                color: Colors.red,
+                              )),
+                        ],
                       ),
                     ),
                     Text(
-                      "${cartModel.foodPrice}0   X${cartModel.quantity}",
+                      "RS ${cartModel.foodPrice}0   X${cartModel.quantity}",
                       style: TextStyle(fontSize: 15),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          height: 25,
-                          width: 30,
-                          child: IconButton(
-                            onPressed: () {
-                              _cartq(cartModel.cartId, -1);
-                            },
-                            icon: FaIcon(
-                              FontAwesomeIcons.minus,
-                              color: Colors.black,
-                              size: 12,
-                            ),
+                    SizedBox(
+                      width: 55.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                height: 25,
+                                width: 30,
+                                child: IconButton(
+                                  onPressed: () {
+                                    if (cartModel.quantity == 1) {
+                                      _cartDel(cartModel.cartId);
+                                    } else {
+                                      _cartq(cartModel.cartId, -1,
+                                          cartModel.foodId);
+                                    }
+                                  },
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.minus,
+                                    color: Colors.black,
+                                    size: 12,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 30,
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  cartModel.quantity.toString(),
+                                  style: TextStyle(
+                                    fontSize: 5.w,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 25,
+                                width: 30,
+                                child: IconButton(
+                                  onPressed: () {
+                                    _cartq(
+                                        cartModel.cartId, 1, cartModel.foodId);
+                                  },
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.add,
+                                    color: Colors.black,
+                                    size: 12,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          width: 30,
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            cartModel.quantity.toString(),
-                            style: TextStyle(
-                              fontSize: 5.w,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                          width: 30,
-                          child: IconButton(
-                            onPressed: () {
-                              _cartq(cartModel.cartId, 1);
-                            },
-                            icon: FaIcon(
-                              FontAwesomeIcons.add,
-                              color: Colors.black,
-                              size: 12,
-                            ),
-                          ),
-                        ),
-                      ],
+                          Text("RS ${cartModel.totalPrice}0",
+                              style: TextStyle(fontSize: 20)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    _cartDel(cartModel.cartId);
-                  },
-                  icon: FaIcon(
-                    FontAwesomeIcons.trashAlt,
-                    color: Colors.red,
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: Text("${cartModel.totalPrice}0",
-                    style: TextStyle(fontSize: 20)),
-              ),
-            ],
-          )
-          //for quantity and total price
         ],
       ),
     );

@@ -39,12 +39,13 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
           cardId: 0,
           nameOnCard: name,
           cardNo: (cardNumber),
-          csvNo: int.parse(cardNumber),
+          csvNo: (cvv),
           exp: (expiryDate),
           username: auth.currentUser!.uid);
       print(cardModel.tableColumnsoutid());
       await databases.saveCardData("card_table", cardModel.tableColumnsoutid(),
           cardModel.dataToListoutid());
+      setState(() {});
     } catch (e) {
       print(e);
     }
@@ -264,8 +265,8 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("${cardmodel.cardNo}"),
-              Text("${cardmodel.csvNo}"),
-              Text("${cardmodel.exp}"),
+              // Text("${cardmodel.csvNo}"),
+              // Text("${cardmodel.exp}"),
             ],
           ),
         ],
